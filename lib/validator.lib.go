@@ -3,8 +3,8 @@ package lib
 import (
 	"encoding/json"
 	"fmt"
-	"go-fiber-ddd/config"
-	"go-fiber-ddd/util"
+	"go-fiber-minimal/config"
+	"go-fiber-minimal/util"
 	"os"
 	"strings"
 
@@ -26,7 +26,7 @@ type validatorManager struct {
 
 func (l *validatorManager) Init() {
 	locale := config.Env.APP_LOCALE
-	uni := ut.New(en.New(), id.New())
+	uni := ut.New(en.New(), en.New(), id.New())
 
 	var found bool
 	l.Translator, found = uni.GetTranslator(locale)
@@ -84,7 +84,7 @@ func generateError(c *fiber.Ctx, err error) error {
 		if v != nil {
 			msg = v.Error()
 		} else {
-			// msg = lang.L.Get().SOMETHING_WENT_WRONG
+			// msg = lang.Trans.Get().SOMETHING_WENT_WRONG
 		}
 	}
 

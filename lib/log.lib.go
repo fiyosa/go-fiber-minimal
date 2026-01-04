@@ -3,9 +3,11 @@ package lib
 import (
 	"encoding/json"
 	"fmt"
-	"go-fiber-ddd/config"
+	"go-fiber-minimal/config"
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 	"time"
 )
 
@@ -89,7 +91,18 @@ func parseContents(v ...any) []any {
 
 func formatLog(level string, v ...any) []any {
 	dt := time.Now().Format("2006-01-02 15:04:05")
-	prefix := fmt.Sprintf("[%s] %s", level, dt)
+
+	fileInfo := "unknown:0"
+	// Mencari caller yang bukan dari file ini (log.lib.go)
+	for i := 1; i < 15; i++ {
+		_, file, line, ok := runtime.Caller(i)
+		if ok && filepath.Base(file) != "log.lib.go" {
+			fileInfo = fmt.Sprintf("%s:%d", filepath.Base(file), line)
+			break
+		}
+	}
+
+	prefix := fmt.Sprintf("[%s] %s %s", level, dt, fileInfo)
 	return append([]any{prefix}, parseContents(v...)...)
 }
 

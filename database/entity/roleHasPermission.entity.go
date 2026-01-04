@@ -5,9 +5,9 @@ import (
 )
 
 type RoleHasPermission struct {
-	Id           int       `json:"id" gorm:"primaryKey;autoIncrement"`
-	RoleId       int       `json:"role_id"`
-	PermissionId int       `json:"permission_id"`
+	Id           uint      `json:"id" gorm:"primaryKey;autoIncrement"`
+	RoleId       uint      `json:"role_id"`
+	PermissionId uint      `json:"permission_id"`
 	CreatedAt    time.Time `json:"created_at" gorm:"type:timestamp(0);not null;default:CURRENT_TIMESTAMP"`
 	UpdatedAt    time.Time `json:"updated_at" gorm:"type:timestamp(0);not null;default:CURRENT_TIMESTAMP"`
 

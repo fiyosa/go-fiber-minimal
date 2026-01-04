@@ -1,9 +1,9 @@
 package bootstrap
 
 import (
-	"go-fiber-ddd/config"
-	"go-fiber-ddd/lib"
-	"go-fiber-ddd/route"
+	"go-fiber-minimal/app/middleware"
+	"go-fiber-minimal/lib"
+	"go-fiber-minimal/route"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -20,9 +20,10 @@ func Init() *fiber.App {
 	lib.Validator.Init()
 
 	app := lib.Fiber.Init()
-	app.Use(config.Cors())
+	app.Use(middleware.Cors.Init())
 
-	lib.LogConsole.Info("Port: " + config.Env.APP_PORT)
+	route.Api(app)
+	route.Web(app)
 
 	return app
 }

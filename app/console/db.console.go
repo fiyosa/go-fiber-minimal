@@ -2,8 +2,8 @@ package console
 
 import (
 	"fmt"
-	"go-fiber-ddd/database/seeder"
-	"go-fiber-ddd/lib"
+	"go-fiber-minimal/database/seeder"
+	"go-fiber-minimal/lib"
 	"os"
 
 	"gorm.io/gorm"

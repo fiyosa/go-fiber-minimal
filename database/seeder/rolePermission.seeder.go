@@ -2,7 +2,7 @@ package seeder
 
 import (
 	"fmt"
-	"go-fiber-ddd/database/entity"
+	"go-fiber-minimal/database/entity"
 	"os"
 
 	"gorm.io/gorm"
@@ -64,7 +64,7 @@ func RolePermissionSeeder(g *gorm.DB) {
 func createAdmin(cr []*entity.Role, cp []*entity.Permission) []*entity.RoleHasPermission {
 	roleName := "admin"
 
-	var roleID int
+	var roleID uint
 	for _, v := range cr {
 		if v.Name == roleName {
 			roleID = v.Id
@@ -88,7 +88,7 @@ func createUser(cr []*entity.Role, cp []*entity.Permission) []*entity.RoleHasPer
 		"user_show",
 	}
 
-	var roleID int
+	var roleID uint
 	for _, v := range cr {
 		if v.Name == roleName {
 			roleID = v.Id

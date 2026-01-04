@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"go-fiber-ddd/config"
+	"go-fiber-minimal/config"
 	"os"
 
 	"github.com/joho/godotenv"

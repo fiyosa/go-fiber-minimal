@@ -1,11 +1,15 @@
-package config
+package middleware
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-func Cors() fiber.Handler {
+var Cors corsManager
+
+type corsManager struct{}
+
+func (corsManager) Init() fiber.Handler {
 	return cors.New(cors.Config{
 		AllowOrigins:     "*",
 		AllowCredentials: false,

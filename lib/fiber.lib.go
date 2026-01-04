@@ -23,7 +23,5 @@ func (fiberManager) Init() *fiber.App {
 
 	app.Use(recover.New())
 
-	app.Static("/", "/public")
-
 	return app
 }

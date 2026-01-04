@@ -3,9 +3,9 @@ package route
 import (
 	"flag"
 	"fmt"
-	"go-fiber-ddd/app/console"
-	"go-fiber-ddd/config"
-	"go-fiber-ddd/lib"
+	"go-fiber-minimal/app/console"
+	"go-fiber-minimal/config"
+	"go-fiber-minimal/lib"
 	"os"
 )
 
