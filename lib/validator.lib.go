@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-fiber-minimal/config"
+	"go-fiber-minimal/lang"
 	"go-fiber-minimal/util"
 	"os"
 	"strings"
@@ -84,7 +85,7 @@ func generateError(c *fiber.Ctx, err error) error {
 		if v != nil {
 			msg = v.Error()
 		} else {
-			// msg = lang.Trans.Get().SOMETHING_WENT_WRONG
+			msg = lang.Trans.Get().SOMETHING_WENT_WRONG
 		}
 	}
 
