@@ -25,27 +25,27 @@ type validatorManager struct {
 	Validate   *validator.Validate
 }
 
-func (l *validatorManager) Init() {
+func (m *validatorManager) Init() {
 	locale := config.Env.APP_LOCALE
 	uni := ut.New(en.New(), en.New(), id.New())
 
 	var found bool
-	l.Translator, found = uni.GetTranslator(locale)
+	m.Translator, found = uni.GetTranslator(locale)
 	if !found {
 		fmt.Printf("Translator for locale %v not found", locale)
 		os.Exit(1)
 	}
 
-	l.Validate = validator.New()
+	m.Validate = validator.New()
 	var err error
 
 	switch locale {
 	case "en":
-		err = en_translations.RegisterDefaultTranslations(l.Validate, l.Translator)
+		err = en_translations.RegisterDefaultTranslations(m.Validate, m.Translator)
 	case "id":
-		err = id_translations.RegisterDefaultTranslations(l.Validate, l.Translator)
+		err = id_translations.RegisterDefaultTranslations(m.Validate, m.Translator)
 	default:
-		err = en_translations.RegisterDefaultTranslations(l.Validate, l.Translator)
+		err = en_translations.RegisterDefaultTranslations(m.Validate, m.Translator)
 	}
 
 	if err != nil {
@@ -54,19 +54,19 @@ func (l *validatorManager) Init() {
 	}
 }
 
-func (*validatorManager) Check(c *fiber.Ctx, input any) (err error, isOk bool) {
+func (m *validatorManager) Check(c *fiber.Ctx, input any) (err error, isOk bool) {
 	if err := c.BodyParser(input); err != nil {
-		return generateError(c, err), false
+		return m.generateError(c, err), false
 	}
 
-	if err := Validator.Validate.Struct(input); err != nil {
-		return generateError(c, err), false
+	if err := m.Validate.Struct(input); err != nil {
+		return m.generateError(c, err), false
 	}
 
 	return nil, true
 }
 
-func generateError(c *fiber.Ctx, err error) error {
+func (validatorManager) generateError(c *fiber.Ctx, err error) error {
 	newErrors := map[string]string{}
 	msg := "Invalid data"
 
