@@ -73,7 +73,7 @@ func generateError(c *fiber.Ctx, err error) error {
 	switch v := err.(type) {
 	case *json.UnmarshalTypeError:
 		field := strings.ToLower(v.Field)
-		newErrors[field] = "Json binding error: " + field + " type error"
+		newErrors[field] = field + " format error"
 
 	case validator.ValidationErrors:
 		for _, e := range v {
