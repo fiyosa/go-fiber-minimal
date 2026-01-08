@@ -1,0 +1,23 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  // "editor.guides.indentation": true,
+  // "editor.tabSize": 2,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "*.lock": true,
+    "public/dist": true,
+    "go.mod": true,
+    "go.sum": true
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
+  // "rest-client.environmentVariables": {
+  //   "local": {
+  //     "HOST": "http://localhost:4000",
+  //     "TOKEN": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoib3pZNUdldjQyayIsImV4cCI6MTczMjI0Mjc5Nn0.2PQLGFJ9JcjQLKn2d2xLc_AsIOTzJG4s2dhtqufUwp8"
+  //   }
+  // }
+}
