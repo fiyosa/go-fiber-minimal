@@ -1,12 +1,12 @@
 @HOST = http://localhost:4000
 @TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNjdnSmQ4SjlZUSIsImV4cCI6MTc2NzYyMDg1OH0.Mp3cnos7VrIDxNvn1-iOKXETdyV56iL0A0Xk7uHIXh0
 
-### 
+###
 
 GET  {{HOST}}/api/auth/user
 Authorization: {{TOKEN}}
 
-### 
+###
 
 POST {{HOST}}/api/auth/login
 Content-Type: application/x-www-form-urlencoded
@@ -14,7 +14,7 @@ Content-Type: application/x-www-form-urlencoded
 username=admin
 &password=Password
 
-### 
+###
 
 POST {{HOST}}/api/auth/register
 Content-Type: application/x-www-form-urlencoded
@@ -23,7 +23,7 @@ username=subordinate1
 &password=Password
 &name=Subordinate 1
 
-### 
+###
  
 POST {{HOST}}/api/auth/upload
 Content-Type: multipart/form-data; boundary=Boundary
