@@ -1,9 +1,8 @@
 @HOST = http://localhost:4000
 @TOKEN_ACCESS = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNjdnSmQ4SjlZUSIsImV4cCI6MTc2NzYyMDg1OH0.Mp3cnos7VrIDxNvn1-iOKXETdyV56iL0A0Xk7uHIXh0
 @TOKEN = Bearer {{TOKEN_ACCESS}}
-
 curl -v -X GET {{HOST}}/api/auth/user \
-    -H "Authorization: {{TOKEN}}"
+    -H "Authorization: {{TOKEN}}" \
 
 ###
 

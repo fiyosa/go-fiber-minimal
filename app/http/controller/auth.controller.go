@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"strings"
 	"time"
 
 	"go-fiber-minimal/app/http/request"
 	"go-fiber-minimal/app/http/resource"
+	"go-fiber-minimal/app/middleware"
 	"go-fiber-minimal/database/entity"
 	"go-fiber-minimal/lang"
 	"go-fiber-minimal/lib"
@@ -73,9 +73,16 @@ func (authManager) Login(c *fiber.Ctx) error {
 		return util.Api.SendError(c, err.Error(), fiber.StatusInternalServerError)
 	}
 
-	return util.Api.SendCustom(c, resource.AuthLogin{
-		Token: token,
-	}, fiber.StatusOK)
+	middleware.Cookie.Set(c, "JWT", token)
+
+	return util.Api.SendSuccess(
+		c,
+		"Login successfully.",
+	)
+
+	// return util.Api.SendCustom(c, resource.AuthLogin{
+	// 	Token: token,
+	// }, fiber.StatusOK)
 }
 
 func (authManager) Register(c *fiber.Ctx) error {
@@ -138,11 +145,7 @@ func (authManager) Register(c *fiber.Ctx) error {
 }
 
 func (authManager) Logout(c *fiber.Ctx) error {
-	getToken := c.Get("Authorization")
-	token := ""
-	if strings.HasPrefix(getToken, "Bearer ") {
-		token = strings.TrimPrefix(getToken, "Bearer ")
-	}
+	token := c.Locals("token").(string)
 
 	if token != "" {
 		if err := lib.DB.Run.Model(&entity.Auth{}).Where("token = ?", token).Updates(map[string]interface{}{
@@ -152,6 +155,8 @@ func (authManager) Logout(c *fiber.Ctx) error {
 			return util.Api.SendException(c, err)
 		}
 	}
+
+	middleware.Cookie.Remove(c, "JWT")
 
 	return util.Api.SendSuccess(
 		c,

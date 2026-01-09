@@ -6,7 +6,6 @@ import (
 	"go-fiber-minimal/lib"
 	"go-fiber-minimal/service"
 	"go-fiber-minimal/util"
-	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -29,19 +28,24 @@ func Auth(permission ...string) fiber.Handler {
 }
 
 func authentication(c *fiber.Ctx, user *entity.User) (error, bool) {
-	getToken := c.Get("Authorization")
+	// getToken := c.Get("Authorization")
 
-	if getToken == "" {
-		return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
-	}
+	// if getToken == "" {
+	// 	return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
+	// }
 
-	tokenParts := strings.Split(getToken, " ")
-	if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
-		return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
-	}
+	// tokenParts := strings.Split(getToken, " ")
+	// if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
+	// 	return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
+	// }
 
-	token := tokenParts[1]
-	if _, err := lib.Jwt.Verify(token); err != nil {
+	// token := tokenParts[1]
+	// if _, err := lib.Jwt.Verify(token); err != nil {
+	// 	return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
+	// }
+
+	token := Cookie.Get(c, "JWT")
+	if token == "" {
 		return util.Api.SendError(c, lang.Trans.Convert(lang.Trans.Get().UNAUTHORIZED_ACCESS)), false
 	}
 
@@ -71,6 +75,7 @@ func authentication(c *fiber.Ctx, user *entity.User) (error, bool) {
 	c.Locals("user", auth.User)
 	c.Locals("roles", *roles)
 	c.Locals("permissions", *permissions)
+	c.Locals("token", token)
 	return nil, true
 }
 
